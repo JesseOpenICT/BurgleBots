@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=3 uid="uid://d36afi1t766e4"]
+
+[ext_resource type="Texture2D" uid="uid://bksddtd5lk7y1" path="res://icon.svg" id="1_ru5js"]
+[ext_resource type="Script" path="res://Camera3D.gd" id="2_neq10"]
+[ext_resource type="Shader" path="res://GlowBorder.gdshader" id="3_ffgrq"]
+[ext_resource type="PackedScene" uid="uid://d0tn8lx7kvdl4" path="res://Scenes/unit.tscn" id="4_vdc14"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_smgpb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5ka4"]
+render_priority = 0
+shader = ExtResource("3_ffgrq")
+shader_parameter/color = Vector3(0.3, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6mdme"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_nt1fq"]
+vertices = PackedVector3Array(-13.75, 0, -12.5, -13.75, 0, -21.5, -22.5, 0, -21.5, -22.5, 0, -12.5, -11.75, 0, -12.5, -11.5, 0, -11.75, -3.5, 0, -11.75, -3.5, 0, -21.5, -13.75, 0, -21.5, -13.75, 0, -21.5, -13.75, 0, -12.5, -11.75, 0, -12.5, -3.5, 0, -9.75, -3.5, 0, -11.75, -11.5, 0, -11.75, -3.5, 0, -9.75, -11.5, 0, -11.75, -11.75, 0, -11.25, -9.75, 0, -2.5, -9.5, 0, -2, -3, 0, -9.5, -11.75, 0, -11.25, -13.25, 0, -11.25, -13, 0, -2.5, -9.75, 0, -2.5, -13.25, 0, -11.25, -22.5, 0, -11.25, -22.5, 0, -2.5, -13, 0, -2.5, 9.5, 0, 0, 9.5, 0, -9.5, 3.25, 0, -9.5, 0, 0, 9.5, 9.5, 0, 9.5, 9.5, 0, 0, 3.25, 0, -9.5, -3, 0, -9.5, -9.5, 0, -2, -9.5, 0, 9.5, 0, 0, 9.5, 9.5, 0, 0)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(7, 4, 8), PackedInt32Array(11, 10, 9), PackedInt32Array(14, 13, 12), PackedInt32Array(16, 15, 17), PackedInt32Array(17, 15, 20), PackedInt32Array(17, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(26, 25, 27), PackedInt32Array(27, 25, 28), PackedInt32Array(31, 30, 29), PackedInt32Array(34, 33, 32), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 40), PackedInt32Array(37, 40, 39), PackedInt32Array(37, 39, 38)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ooevf"]
+albedo_texture = ExtResource("1_ru5js")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_liycl"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h5kq5"]
+size = Vector3(20, 0.1, 20)
+
+[node name="Level" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7.13208, 8.35498)
+projection = 1
+size = 20.0
+script = ExtResource("2_neq10")
+
+[node name="MarkerCube" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_smgpb")
+surface_material_override/0 = SubResource("ShaderMaterial_g5ka4")
+
+[node name="MarkerZone" type="Area3D" parent="Camera3D/MarkerCube"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="MarkerZoneArea" type="CollisionShape3D" parent="Camera3D/MarkerCube/MarkerZone"]
+shape = SubResource("BoxShape3D_6mdme")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -100)
+collision_mask = 3
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 0, 0)
+
+[node name="Unit" parent="." instance=ExtResource("4_vdc14")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_nt1fq")
+
+[node name="Area" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_ooevf")
+mesh = SubResource("PlaneMesh_liycl")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Area/MeshInstance3D" groups=["Terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Area/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_h5kq5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D/Area"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -22, -6, -12)
+material_override = SubResource("StandardMaterial3D_ooevf")
+mesh = SubResource("PlaneMesh_liycl")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Area/MeshInstance3D3" groups=["Terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Area/MeshInstance3D3/StaticBody3D"]
+shape = SubResource("BoxShape3D_h5kq5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D/Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.5, -12)
+material_override = SubResource("StandardMaterial3D_ooevf")
+mesh = SubResource("PlaneMesh_liycl")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Area/MeshInstance3D2" groups=["Terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Area/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_h5kq5")
+
+[node name="Unit2" parent="." instance=ExtResource("4_vdc14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Unit3" parent="." instance=ExtResource("4_vdc14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Unit4" parent="." instance=ExtResource("4_vdc14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="Unit5" parent="." instance=ExtResource("4_vdc14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -2)
+
+[node name="Unit6" parent="." instance=ExtResource("4_vdc14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="Unit7" parent="." instance=ExtResource("4_vdc14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
