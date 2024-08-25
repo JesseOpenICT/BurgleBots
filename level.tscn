@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://d36afi1t766e4"]
+[gd_scene load_steps=13 format=3 uid="uid://d36afi1t766e4"]
 
 [ext_resource type="Texture2D" uid="uid://bksddtd5lk7y1" path="res://icon.svg" id="1_ru5js"]
 [ext_resource type="Script" path="res://Camera3D.gd" id="2_neq10"]
 [ext_resource type="Shader" path="res://GlowBorder.gdshader" id="3_ffgrq"]
 [ext_resource type="PackedScene" uid="uid://d0tn8lx7kvdl4" path="res://Scenes/unit.tscn" id="4_vdc14"]
+[ext_resource type="PackedScene" uid="uid://bb0eh08o7tosj" path="res://Scenes/jewel.tscn" id="5_bvcg0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_smgpb"]
 
@@ -77,7 +78,7 @@ collision_mask = 10
 shape = SubResource("BoxShape3D_h5kq5")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D/Area"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -22, -6, -12)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -22, -9, -12)
 material_override = SubResource("StandardMaterial3D_ooevf")
 mesh = SubResource("PlaneMesh_liycl")
 skeleton = NodePath("../..")
@@ -121,3 +122,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
 
 [node name="Unit7" parent="." instance=ExtResource("4_vdc14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
+
+[node name="Jewel" parent="." instance=ExtResource("5_bvcg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -6)
+
+[node name="Jewel2" parent="." instance=ExtResource("5_bvcg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -6)

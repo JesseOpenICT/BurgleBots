@@ -38,10 +38,16 @@ func _input(event):
 		select(true)
 	
 	if Input.is_action_just_released("RMB"):
-		if getcoltarget().is_in_group("Terrain"):
-			var targetpos = $RayCast3D.get_collision_point()
-			for unit in SelectedUnits:
-				unit.set_target_location(targetpos)
+		var target = getcoltarget()
+		if target != null:
+			if target.is_in_group("Terrain"):
+				var targetpos = $RayCast3D.get_collision_point()
+				for unit in SelectedUnits:
+					unit.set_target_location(targetpos)
+					unit.set_target_objective(null)
+			elif target.is_in_group("Objective"):
+				for unit in SelectedUnits:
+					unit.set_target_objective(target)
 	
 	if Input.is_action_just_pressed("tool") or Input.is_action_just_pressed("MMB"):
 		GlowBox.get_surface_override_material(0).set_shader_parameter("color", Vector3(3, 0.8, 0))
@@ -73,8 +79,9 @@ func select(additive):
 	if $MarkerCube/MarkerZone.get_overlapping_bodies().size() == 0:
 		$RayCast3D.set_collision_mask_value(3, true)
 		var target = getcoltarget()
-		print (target)
-		if target.has_method("select"):
+		if target == null:
+			pass
+		elif target.has_method("select"):
 				target.select(true)
 				SelectedUnits.append(target)
 	else:
