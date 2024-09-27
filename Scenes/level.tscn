@@ -1,0 +1,144 @@
+[gd_scene load_steps=16 format=3 uid="uid://d36afi1t766e4"]
+
+[ext_resource type="Script" path="res://Scripts/LevelElements/Camera3D.gd" id="1_5x7ey"]
+[ext_resource type="Shader" path="res://GlowBorder.gdshader" id="2_jqarj"]
+[ext_resource type="PackedScene" uid="uid://d0tn8lx7kvdl4" path="res://Scenes/unit.tscn" id="3_n21yo"]
+[ext_resource type="Texture2D" uid="uid://bksddtd5lk7y1" path="res://icon.svg" id="4_dty0w"]
+[ext_resource type="PackedScene" uid="uid://bb0eh08o7tosj" path="res://Scenes/jewel.tscn" id="5_fm0ug"]
+[ext_resource type="PackedScene" uid="uid://bgxp2tk1no2uw" path="res://Scenes/Level Elements/exit.tscn" id="6_u1qj7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_smgpb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5ka4"]
+render_priority = 0
+shader = ExtResource("2_jqarj")
+shader_parameter/color = Vector3(0.3, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6mdme"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_nt1fq"]
+vertices = PackedVector3Array(6.25, 0, -16.5, 6.75, 0, -16.5, 6.75, 0, -26, 0.25, 0, -26, -12.75, 0, -26, -19, 0, -26, -19, 0, -17.75, 6.25, 0, -16.5, 0.25, 0, -26, -6.25, 0, -26, -19, 0, -17.75, -9.75, 0, -9.5, -0.5, 0, -9.5, -19, 0, -17.75, -19, 0, -9.5, -9.75, 0, -9.5, -6.25, 0, -26, -12.75, 0, -26, -19, 0, -17.75, 6.75, 0, -26, 6.75, 0, -16.5, 7.25, 0, -16.5, 12.75, 0, -26, 7.25, 0, -16.5, 8.5, 0, -14.75, 19, 0, -14.75, 19, 0, -26, 12.75, 0, -26, 12.5, 0, 12, 19, 0, 12, 19, 0, 5.25, 19, 0, -14.75, 8.5, 0, -14.75, 8.5, 0, -14.25, 19, 0, -8.25, -6.25, 0, 0.5, -6.75, 0, 0.5, -6.75, 0, 12, -0.5, 0, 12, -6.25, 0, 0.5, -0.5, 0, 12, 6, 0, 12, 6, 0, 12, 19, 0, 5.25, 19, 0, -1.5, 8.5, 0, -14.25, 1, 0, -7, -6.25, 0, 0.5, 6, 0, 12, 12.5, 0, 12, 19, 0, 5.25, 19, 0, -1.5, 19, 0, -8.25, 8.5, 0, -14.25, -8.5, 0, -1.75, -4, 0, -6.25, -11.5, 0, -6.25, -8.5, 0, -0.75, -8.5, 0, -1.75, -11.5, 0, -6.25, -19, 0, -6.25, -19, 0, 2.75, -19, 0, 2.75, -19, 0, 12, -13, 0, 12, -6.75, 0, 0.5, -8.5, 0, -0.75, -19, 0, 2.75, -13, 0, 12, -6.75, 0, 12)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 12), PackedInt32Array(9, 12, 11), PackedInt32Array(9, 11, 10), PackedInt32Array(15, 14, 13), PackedInt32Array(18, 17, 16), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 22), PackedInt32Array(24, 23, 25), PackedInt32Array(25, 23, 27), PackedInt32Array(25, 27, 26), PackedInt32Array(30, 29, 28), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(41, 40, 39), PackedInt32Array(43, 42, 44), PackedInt32Array(44, 42, 47), PackedInt32Array(44, 47, 46), PackedInt32Array(44, 46, 45), PackedInt32Array(50, 49, 48), PackedInt32Array(53, 52, 51), PackedInt32Array(56, 55, 54), PackedInt32Array(58, 57, 59), PackedInt32Array(59, 57, 60), PackedInt32Array(60, 57, 61), PackedInt32Array(64, 63, 62), PackedInt32Array(66, 65, 67), PackedInt32Array(67, 65, 68), PackedInt32Array(68, 65, 69)]
+agent_radius = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ooevf"]
+albedo_texture = ExtResource("4_dty0w")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_liycl"]
+resource_local_to_scene = true
+size = Vector2(40, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h5kq5"]
+size = Vector3(40, 0.1, 40)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t70t3"]
+size = Vector3(20, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qrjgu"]
+size = Vector3(20, 1, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10.132, 10)
+projection = 1
+size = 20.0
+script = ExtResource("1_5x7ey")
+LimitDistMin = Vector2(-10, -10)
+LimitDistMax = Vector2(10, 10)
+
+[node name="MarkerCube" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_smgpb")
+surface_material_override/0 = SubResource("ShaderMaterial_g5ka4")
+
+[node name="MarkerZone" type="Area3D" parent="Camera3D/MarkerCube"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="MarkerZoneArea" type="CollisionShape3D" parent="Camera3D/MarkerCube/MarkerZone"]
+shape = SubResource("BoxShape3D_6mdme")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -100)
+collision_mask = 3
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 0, 0)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_nt1fq")
+
+[node name="Area" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -7)
+material_override = SubResource("StandardMaterial3D_ooevf")
+mesh = SubResource("PlaneMesh_liycl")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Area/MeshInstance3D" groups=["Terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Area/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_h5kq5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D/Area"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -10, 0, -8)
+material_override = SubResource("StandardMaterial3D_ooevf")
+mesh = SubResource("BoxMesh_t70t3")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Area/MeshInstance3D3" groups=["Terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Area/MeshInstance3D3/StaticBody3D"]
+shape = SubResource("BoxShape3D_qrjgu")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="NavigationRegion3D/Area"]
+transform = Transform3D(0.707107, 0.707107, -3.09086e-08, 0, -4.37114e-08, -1, -0.707107, 0.707107, -3.09086e-08, 0, 0, -8)
+material_override = SubResource("StandardMaterial3D_ooevf")
+mesh = SubResource("BoxMesh_t70t3")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Area/MeshInstance3D4" groups=["Terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Area/MeshInstance3D4/StaticBody3D"]
+shape = SubResource("BoxShape3D_qrjgu")
+
+[node name="Unit" parent="." instance=ExtResource("3_n21yo")]
+
+[node name="Unit2" parent="." instance=ExtResource("3_n21yo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Unit3" parent="." instance=ExtResource("3_n21yo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Unit4" parent="." instance=ExtResource("3_n21yo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="Unit5" parent="." instance=ExtResource("3_n21yo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -2)
+
+[node name="Unit6" parent="." instance=ExtResource("3_n21yo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="Unit7" parent="." instance=ExtResource("3_n21yo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
+
+[node name="Jewel" parent="." instance=ExtResource("5_fm0ug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+
+[node name="Jewel2" parent="." instance=ExtResource("5_fm0ug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -10)
+
+[node name="Exit" parent="." instance=ExtResource("6_u1qj7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4438, -0.499, -10.3279)

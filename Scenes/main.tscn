@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbfb7pk5oso6x"]
+
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_86u3f"]
+[ext_resource type="Script" path="res://Scenes/RunSaveLoader.gd" id="2_7ogss"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_86u3f")
+
+[node name="LoadingCover" type="ColorRect" parent="."]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.498039, 0.498039, 0.498039, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LoadingCover"]
+layout_mode = 1
+offset_right = 12777.0
+offset_bottom = 4330.0
+scale = Vector2(0.01, 0.01)
+theme_override_font_sizes/normal_font_size = 3000
+text = "Loading"
+
+[node name="RunSaveLoader" type="Node" parent="."]
+script = ExtResource("2_7ogss")

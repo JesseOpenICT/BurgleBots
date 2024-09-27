@@ -3,12 +3,14 @@ extends CharacterBody3D
 @onready var NavAgent : NavigationAgent3D = $NavAgent
 
 var Statisfied : bool = false
-var Objective = null
+var Objective : Node = null
+var Carrying : Node = null
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 func _physics_process(delta):
+	position.y = 0
 	# get and go to objective
 	if Objective != null:
 		set_target_location(Objective.position)
@@ -41,7 +43,6 @@ func select(setto):
 	$Selected.visible = setto
 
 func set_target_location(location):
-	print(Objective)
 	Statisfied = false
 	NavAgent.target_position = location
 	NavAgent.target_position.y = 0
@@ -59,6 +60,7 @@ func _on_nav_agent_velocity_computed(safe_velocity):
 
 
 func _on_pickup_range_body_entered(body):
-	if body == Objective:
+	if body == Objective and Carrying == null and Objective.is_in_group("Treasure"):
 		Objective.targetable = false
 		Objective.CARRIEDBY = self
+		Carrying = Objective

@@ -1,9 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0tn8lx7kvdl4"]
 
-[ext_resource type="Script" path="res://Scenes/unit.gd" id="1_2urod"]
+[ext_resource type="Script" path="res://Scripts/LevelElements/unit.gd" id="1_5ss0a"]
 [ext_resource type="Texture2D" uid="uid://cob7rjok8n8e4" path="res://Assets/arrow.png" id="1_vv37l"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_db48n"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y4k67"]
+height = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_d83wv"]
 
@@ -17,10 +18,10 @@ radius = 4.0
 [node name="Unit" type="CharacterBody3D" groups=["Unit"]]
 collision_layer = 12
 collision_mask = 12
-script = ExtResource("1_2urod")
+script = ExtResource("1_5ss0a")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_db48n")
+shape = SubResource("CylinderShape3D_y4k67")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_d83wv")

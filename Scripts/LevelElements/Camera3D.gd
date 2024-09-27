@@ -3,6 +3,9 @@ extends Camera3D
 var StartMousePos : Vector3
 var SelectedUnits : Array
 
+@export var LimitDistMin : Vector2 = Vector2(-100, -100)
+@export var LimitDistMax : Vector2 = Vector2(100, 100)
+
 @onready var GlowBox : VisualInstance3D = $MarkerCube
 @onready var SelectBox : CollisionShape3D = $MarkerCube/MarkerZone/MarkerZoneArea
 
@@ -18,6 +21,15 @@ func _ready():
 
 
 func _process(delta):
+	if Input.is_action_pressed("right") and position.x < LimitDistMax.x:
+		position.x += 10*delta
+	if Input.is_action_pressed("left") and position.x > LimitDistMin.x:
+		position.x -= 10*delta
+	if Input.is_action_pressed("down") and position.z < LimitDistMax.y:
+		position.z += 15*delta
+	if Input.is_action_pressed("up") and position.z > LimitDistMin.y:
+		position.z -= 15*delta
+	
 	GlowBox.global_position = (getscreenposition()+StartMousePos) / 2
 	GlowBox.mesh.size = abs(StartMousePos-getscreenposition()) + Vector3(0,2,0)
 	SelectBox.shape.size = GlowBox.mesh.size

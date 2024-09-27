@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2i8t58otn0tq"]
+
+[ext_resource type="Texture2D" uid="uid://bksddtd5lk7y1" path="res://icon.svg" id="1_y4lp6"]
+[ext_resource type="Script" path="res://Scripts/Buttons and such/MenuButton.gd" id="2_pcu6w"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.376471, 0.384314, 0.670588, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -52.5
+offset_right = 35.0
+offset_bottom = 52.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/BoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_y4lp6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Start" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+script = ExtResource("2_pcu6w")
+FUNCTION = "engage"
+PARAM = Array[String](["LEVEL"])
+
+[node name="Exit" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Ok enough"
+script = ExtResource("2_pcu6w")
+FUNCTION = "exit"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Start" to="VBoxContainer/VBoxContainer/Start" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Exit" to="VBoxContainer/VBoxContainer/Exit" method="_on_pressed"]

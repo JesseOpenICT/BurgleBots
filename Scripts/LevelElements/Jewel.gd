@@ -12,3 +12,10 @@ func _process(delta):
 		targetable = true
 	else:
 		global_position = Vector3(CARRIEDBY.global_position.x, 1, CARRIEDBY.global_position.z)
+
+func collect():
+	# increase score (TBA)
+	# Spawn particles (TBA)
+	CARRIEDBY.Carrying = null
+	CARRIEDBY = null
+	queue_free()

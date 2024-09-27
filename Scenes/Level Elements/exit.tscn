@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgxp2tk1no2uw"]
+
+[ext_resource type="Script" path="res://Scripts/LevelElements/exit.gd" id="1_u637o"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0clmy"]
+size = Vector2(4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e6cbb"]
+albedo_color = Color(0.513726, 0, 0.243137, 1)
+emission_enabled = true
+emission = Color(1, 0.0117647, 0.513726, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hhbwm"]
+size = Vector3(4, 3, 4)
+
+[node name="Exit" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499, 0)
+mesh = SubResource("PlaneMesh_0clmy")
+surface_material_override/0 = SubResource("StandardMaterial3D_e6cbb")
+script = ExtResource("1_u637o")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_hhbwm")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
