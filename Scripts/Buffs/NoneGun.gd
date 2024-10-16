@@ -4,7 +4,6 @@ extends Weapon
 var recovery_speed = 1.
 
 func _ready():
-	get_parent().abilities.append(self)
 	get_parent().update_speed()
 
 func _process(delta):
@@ -24,9 +23,9 @@ func fire_prep():
 	attack.source = get_parent()
 	attack.target = target
 	attack.tint = tint
-	get_parent().attack_filters(attack)
+#	get_parent().attack_filters(attack)
 
-func fire_post(attack):
+#func fire_post(attack):
 	#spawn bullet
 	var bullet = projectile.instantiate()
 	bullet.global_position = global_position
@@ -34,7 +33,10 @@ func fire_post(attack):
 	bullet.attack = attack
 	get_tree().current_scene.currentscene.add_child(bullet)
 
-#func land_attack(attack):
+func land_attack(attack):
+	print(attack.amount)
+	attack.amount*=5
+	print(attack.amount)
 #	attack.target.heart.temperature += +0.5
 
 #func update_speed(speed, recovery):

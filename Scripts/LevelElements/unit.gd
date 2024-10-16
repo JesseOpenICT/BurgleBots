@@ -103,7 +103,7 @@ func _on_pickup_range_body_entered(body): # if the unit reaches its objective wh
 #On treasure drop
 #On treasure collected for one ability and nothing else lmao
 
-func attack_filters(attack):
+func DISABLED_attack_filters(attack):
 	for ability in abilities:
 		if ability.has_method("attack_filter"):
 			attack = ability.attack_filter(attack)

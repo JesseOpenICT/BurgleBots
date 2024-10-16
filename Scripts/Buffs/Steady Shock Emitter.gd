@@ -24,9 +24,9 @@ func fire_prep():
 	attack.source = get_parent()
 	attack.target = target
 	attack.tint = tint
-	get_parent().attack_filters(attack)
+#	get_parent().attack_filters(attack)
 
-func fire_post(attack):
+#func fire_post(attack):
 	#spawn bullet
 	var bullet = projectile.instantiate()
 	bullet.global_position = global_position
