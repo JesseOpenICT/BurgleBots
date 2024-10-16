@@ -16,10 +16,6 @@ var SelectedUnits : Array
 # LAYER 4 = Terrain AND all physics objects including units
 
 
-func _ready():
-	pass
-
-
 func _process(delta):
 	if Input.is_action_pressed("right") and position.x < LimitDistMax.x:
 		position.x += 10*delta
@@ -34,22 +30,26 @@ func _process(delta):
 	GlowBox.mesh.size = abs(StartMousePos-getscreenposition()) + Vector3(0,2,0)
 	SelectBox.shape.size = GlowBox.mesh.size
 
+func setraycast(targets:Array[int]):
+	for layer in [1,2,3,4]:
+		$RayCast3D.set_collision_mask_value(layer, targets.has(layer))
 
 func _input(event):
 	if Input.is_action_just_pressed("LMB") or Input.is_action_just_pressed("MMB"):
-		$RayCast3D.set_collision_mask_value(1, false)
+		setraycast([2])
 		StartMousePos = getscreenposition()
 		GlowBox.visible = true
 	if Input.is_action_just_released("LMB"):
-		$RayCast3D.set_collision_mask_value(1, true)
+		setraycast([1,2])
 		GlowBox.visible = false
 		select(Input.is_action_pressed("tool"))
 	if Input.is_action_just_released("MMB"):
-		$RayCast3D.set_collision_mask_value(1, true)
+		setraycast([1,2])
 		GlowBox.visible = false
 		select(true)
 	
 	if Input.is_action_just_released("RMB"):
+		setraycast([1,2])
 		var target = getcoltarget()
 		if target != null:
 			if target.is_in_group("Terrain"):
@@ -65,6 +65,11 @@ func _input(event):
 		GlowBox.get_surface_override_material(0).set_shader_parameter("color", Vector3(3, 0.8, 0))
 	if (Input.is_action_just_released("tool") and not Input.is_action_pressed("MMB")) or Input.is_action_just_released("MMB"):
 		GlowBox.get_surface_override_material(0).set_shader_parameter("color", Vector3(0.3, 1, 10))
+	
+	if Input.is_action_just_pressed("drop"):
+		for unit in SelectedUnits:
+			if unit.Carrying:
+				unit.drop()
 
 func getscreenposition():
 	var spacestate = get_world_3d().direct_space_state
@@ -87,15 +92,15 @@ func select(additive):
 		for object in SelectedUnits:
 			object.select(false)
 		SelectedUnits = []
-	print($MarkerCube/MarkerZone.get_overlapping_bodies().size() )
 	if $MarkerCube/MarkerZone.get_overlapping_bodies().size() == 0:
-		$RayCast3D.set_collision_mask_value(3, true)
-		var target = getcoltarget()
-		if target == null:
-			pass
-		elif target.has_method("select"):
-				target.select(true)
-				SelectedUnits.append(target)
+		var units = get_tree().get_nodes_in_group("Unit")
+		var distances : Array
+		for unit in units:
+			distances.append( getscreenposition().distance_to(unit.position))
+		if distances.min() < 2:
+			var selection = units[distances.find(distances.min())]
+			selection.select(true)
+			SelectedUnits.append(selection)
 	else:
 		for object in $MarkerCube/MarkerZone.get_overlapping_bodies():
 			if object.has_method("select"):

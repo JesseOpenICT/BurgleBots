@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0tn8lx7kvdl4"]
+
+[ext_resource type="Script" path="res://Scripts/LevelElements/unit.gd" id="1_5ss0a"]
+[ext_resource type="Texture2D" uid="uid://cob7rjok8n8e4" path="res://Assets/arrow.png" id="1_vv37l"]
+[ext_resource type="PackedScene" uid="uid://dwb5ft10f803g" path="res://Scenes/resource_bars.tscn" id="4_5kml8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dlxho"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_d83wv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l2c6f"]
+radius = 1.5
+
+[node name="Unit" type="CharacterBody3D" groups=["Unit"]]
+collision_layer = 12
+collision_mask = 12
+safe_margin = 0.005
+script = ExtResource("1_5ss0a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_dlxho")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_d83wv")
+
+[node name="Selected" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.5, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+render_priority = 1
+texture = ExtResource("1_vv37l")
+
+[node name="NavAgent" type="NavigationAgent3D" parent="."]
+path_desired_distance = 1.2
+target_desired_distance = 2.0
+path_height_offset = 1.0
+avoidance_enabled = true
+radius = 0.6
+neighbor_distance = 6.0
+max_neighbors = 6
+
+[node name="PickupRange" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupRange"]
+shape = SubResource("SphereShape3D_l2c6f")
+
+[node name="ResourceBars" parent="." instance=ExtResource("4_5kml8")]
+
+[connection signal="velocity_computed" from="NavAgent" to="." method="_on_nav_agent_velocity_computed"]
+[connection signal="body_entered" from="PickupRange" to="." method="_on_pickup_range_body_entered"]

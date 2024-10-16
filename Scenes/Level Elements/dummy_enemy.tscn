@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bglr3va2hu7mg"]
+
+[ext_resource type="Script" path="res://Scripts/LevelElements/Dummy.gd" id="1_cj0p4"]
+[ext_resource type="PackedScene" uid="uid://dwb5ft10f803g" path="res://Scenes/resource_bars.tscn" id="2_8bku4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7bm4f"]
+albedo_color = Color(0.568627, 0.317647, 0.741176, 1)
+metallic = 0.52
+metallic_specular = 0.92
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mwf5j"]
+lightmap_size_hint = Vector2i(17, 14)
+material = SubResource("StandardMaterial3D_7bm4f")
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x2m23"]
+height = 1.0
+radius = 0.9
+
+[node name="dummy" type="CharacterBody3D" groups=["Enemy", "Objective"]]
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("1_cj0p4")
+health = 200
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mwf5j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_x2m23")
+
+[node name="ResourceBars" parent="." instance=ExtResource("2_8bku4")]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 1.0
+neighbor_distance = 5.0

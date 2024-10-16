@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://l8l4pjsqhfi4"]
+
+[ext_resource type="Script" path="res://Scripts/Buffs/Status/Carrying.gd" id="1_h48qq"]
+
+[node name="Carrying" type="Node"]
+script = ExtResource("1_h48qq")

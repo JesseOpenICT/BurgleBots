@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bb2xpfr6dg3m5"]
+
+[ext_resource type="Shader" path="res://Assets/Textures/Wall.gdshader" id="1_3aulw"]
+[ext_resource type="Script" path="res://Scripts/LevelElements/Wall.gd" id="2_mwqve"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sf0fs"]
+render_priority = 0
+shader = ExtResource("1_3aulw")
+
+[sub_resource type="BoxMesh" id="BoxMesh_t70t3"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qrjgu"]
+
+[node name="Wall" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_sf0fs")
+mesh = SubResource("BoxMesh_t70t3")
+skeleton = NodePath("../..")
+script = ExtResource("2_mwqve")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["Terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_qrjgu")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]

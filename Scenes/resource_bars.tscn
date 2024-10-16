@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwb5ft10f803g"]
+
+[ext_resource type="Shader" path="res://ResourceBar.gdshader" id="1_m0oh4"]
+[ext_resource type="Script" path="res://Scripts/resource_bars.gd" id="1_nch0u"]
+[ext_resource type="Texture2D" uid="uid://yesi7dplrdqm" path="res://Assets/ResourceBar.png" id="2_46ar7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qspg4"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_m0oh4")
+shader_parameter/color1 = Vector3(0, 0.8, 0)
+shader_parameter/color1glow = Vector3(0, 0.2, 1)
+shader_parameter/color2 = Vector3(0.1, 0, -0.395)
+shader_parameter/color2glow = Vector3(0.5, 0, 0)
+shader_parameter/value = 0.5
+shader_parameter/image = ExtResource("2_46ar7")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oipkr"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_qspg4")
+size = Vector2(2, 1.6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s2dip"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_m0oh4")
+shader_parameter/color1 = Vector3(0.5, 0.02, 0)
+shader_parameter/color1glow = Vector3(1, 0.4, 0)
+shader_parameter/color2 = Vector3(0, 0.8, 1)
+shader_parameter/color2glow = Vector3(0.5, 1, 0)
+shader_parameter/value = 0.5
+shader_parameter/image = ExtResource("2_46ar7")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lmyom"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_s2dip")
+size = Vector2(2, 1.6)
+
+[node name="ResourceBars" type="Node3D"]
+script = ExtResource("1_nch0u")
+
+[node name="HP" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96701e-07, 0, -1.5, 0, 1.5, 0, 1.5, 0, 1.96701e-07, -0.4575, -0.45, 5.99939e-08)
+visible = false
+mesh = SubResource("PlaneMesh_oipkr")
+
+[node name="TEMP" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96701e-07, 1.31134e-07, 1.5, 0, -1.5, 1.31134e-07, 1.5, -1.71962e-14, -1.96701e-07, 0.4575, -0.45, -5.99939e-08)
+visible = false
+mesh = SubResource("PlaneMesh_lmyom")

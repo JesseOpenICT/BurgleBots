@@ -8,14 +8,15 @@ var CARRIEDBY = null
 func _process(delta):
 	$CollisionShape3D.disabled = !targetable
 	if CARRIEDBY == null:
-		global_position.move_toward(Vector3(global_position.x, 0, global_position.y), 0.1*delta)
+		global_position = global_position.move_toward(Vector3(global_position.x, 0, global_position.z), 12*delta)
+		#global_position = Vector3(global_position.x, 0, global_position.z)
 		targetable = true
 	else:
-		global_position = Vector3(CARRIEDBY.global_position.x, 1, CARRIEDBY.global_position.z)
+		$CollisionShape3D.disabled = true
+		global_position = global_position.move_toward(CARRIEDBY.global_position + Vector3(0,1,0), 12*delta)
 
 func collect():
 	# increase score (TBA)
 	# Spawn particles (TBA)
-	CARRIEDBY.Carrying = null
-	CARRIEDBY = null
+	CARRIEDBY.drop()
 	queue_free()

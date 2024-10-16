@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://d1nh3p684p1ow"]
+
+[ext_resource type="Script" path="res://Scripts/Attacks/ProjectileAttack.gd" id="1_jra7v"]
+[ext_resource type="Shader" path="res://Assets/Textures/Projectile.gdshader" id="2_m2vhk"]
+[ext_resource type="Shader" path="res://Assets/Textures/ProjectileCore.gdshader" id="3_ni41e"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6eur8"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_phtgl"]
+seamless = true
+normalize = false
+noise = SubResource("FastNoiseLite_6eur8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_opp38"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_m2vhk")
+shader_parameter/color = Vector3(0.1, 0.1, 0.1)
+shader_parameter/noise = SubResource("NoiseTexture2D_phtgl")
+
+[sub_resource type="SphereMesh" id="SphereMesh_j32y7"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_opp38")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vemhg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_ni41e")
+shader_parameter/color = Vector3(0.1, 0.1, 0.1)
+shader_parameter/noise = SubResource("NoiseTexture2D_phtgl")
+
+[sub_resource type="SphereMesh" id="SphereMesh_gkbx2"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_vemhg")
+
+[node name="ProjectileAttack" type="Node3D"]
+script = ExtResource("1_jra7v")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Outer" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, -8.74228e-08, 1, -1, -8.74228e-08, 0, 4.37114e-08, -2, -4.37114e-08, 2.43044e-08, 0, 0.556019)
+mesh = SubResource("SphereMesh_j32y7")
+
+[node name="Inner" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.35161e-15, -3.63324e-08, 0.707398, -0.707398, -3.63325e-08, 0, 3.09213e-08, -0.831189, -3.09213e-08, 2.28958e-09, 3.73035e-14, 0.0523796)
+mesh = SubResource("SphereMesh_gkbx2")
+skeleton = NodePath("../Outer")

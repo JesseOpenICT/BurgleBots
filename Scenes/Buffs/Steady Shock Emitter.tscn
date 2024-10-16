@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcwl8dkuekv76"]
+
+[ext_resource type="Script" path="res://Scripts/Buffs/NoneGun.gd" id="1_7dnhm"]
+
+[node name="Steady Shock Emitter" type="Node3D"]
+script = ExtResource("1_7dnhm")
+firerate = 0.5
+range = 6.0
+color = "Yellow"
+tint = Vector3(1.1, 1, 0)

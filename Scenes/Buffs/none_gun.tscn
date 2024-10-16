@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://8bpelnapa3qd"]
+
+[ext_resource type="Script" path="res://Scripts/Buffs/NoneGun.gd" id="1_ps5rw"]
+
+[node name="NoneGun" type="Node3D"]
+script = ExtResource("1_ps5rw")
+range = 6.0

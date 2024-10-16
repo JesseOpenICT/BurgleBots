@@ -1,21 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbfb7pk5oso6x"]
+[gd_scene load_steps=8 format=3 uid="uid://bbfb7pk5oso6x"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_86u3f"]
-[ext_resource type="Script" path="res://Scenes/RunSaveLoader.gd" id="2_7ogss"]
+[ext_resource type="Script" path="res://Scripts/RunSaveLoader.gd" id="2_cjxb6"]
+[ext_resource type="Shader" path="res://Assets/Textures/LoadCover.gdshader" id="2_iucp3"]
+[ext_resource type="Texture2D" uid="uid://cphv8nse4suos" path="res://Assets/GradientCircle.png" id="3_ut855"]
+[ext_resource type="Texture2D" uid="uid://ci0h5a5lkdouv" path="res://Assets/_CLUTTER Crown.PNG" id="4_2o06l"]
+[ext_resource type="Script" path="res://Scripts/LoadingCover.gd" id="5_lfdxu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_se6cl"]
+shader = ExtResource("2_iucp3")
+shader_parameter/scale = 0.02
+shader_parameter/angle = true
+shader_parameter/loadprogress = 0.0
+shader_parameter/bubbles = ExtResource("3_ut855")
+shader_parameter/logos = ExtResource("4_2o06l")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_86u3f")
 
 [node name="LoadingCover" type="ColorRect" parent="."]
 z_index = 1
+material = SubResource("ShaderMaterial_se6cl")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.498039, 0.498039, 0.498039, 1)
+script = ExtResource("5_lfdxu")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="LoadingCover"]
+visible = false
 layout_mode = 1
 offset_right = 12777.0
 offset_bottom = 4330.0
@@ -24,4 +39,4 @@ theme_override_font_sizes/normal_font_size = 3000
 text = "Loading"
 
 [node name="RunSaveLoader" type="Node" parent="."]
-script = ExtResource("2_7ogss")
+script = ExtResource("2_cjxb6")
